@@ -1,0 +1,64 @@
+<div [class]="class + ' my-6'">
+
+  <input
+    [type]="(type != 'password') ? type : (PassWordOpen() ? 'text' : 'password')"
+    id="correo"
+    [value]="value"
+    (blur)="onTouched()"
+    (input)="updateValue($event)"
+    [disabled]="disabled"
+    placeholder=" "
+    class="peer block w-full px-3 py-2 bg-transparent border border-gray-300 rounded-lg placeholder-transparent"
+    [ngClass]="classStatusInput"
+  />
+
+  <label
+    for="correo"
+    class="absolute left-3 bg-transparent px-1 transition-all duration-200 pointer-events-none
+           top-2 text-base
+           peer-placeholder-shown:top-2
+           peer-placeholder-shown:text-base
+           peer-[&:not(:placeholder-shown)]:-top-5
+           peer-[&:not(:placeholder-shown)]:text-sm"
+    [ngClass]="classStatusLabel"
+  >
+    {{label}}
+  </label>
+
+  @if(type === 'password'){
+    <button
+      type="button"
+      class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 "
+      (click)="toggleEyes()"
+    >
+        @if(PassWordOpen()){
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-7 h-7"><g data-name="Layer 2"><path fill="none" d="M0 0h48v48H0z" data-name="invisible box"/><g data-name="icons Q2"><path d="M45.3 22.1C43.2 19.5 35.4 11 24 11S4.8 19.5 2.7 22.1a3 3 0 0 0 0 3.8C4.8 28.5 12.6 37 24 37s19.2-8.5 21.3-11.1a3 3 0 0 0 0-3.8ZM24 33c-8.8 0-15.3-6.2-17.7-9 2.4-2.8 8.9-9 17.7-9s15.3 6.2 17.7 9c-2.4 2.8-8.9 9-17.7 9Z"/><circle cx="24" cy="24" r="6"/></g></g></svg>
+        }@else {
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-7 h-7"><g data-name="Layer 2"><path fill="none" d="M0 0h48v48H0z" data-name="invisible box"/><g data-name="icons Q2"><path d="M45.3 22.1C43.2 19.5 35.4 11 24 11a23.4 23.4 0 0 0-3.8.3l3.6 3.7h.2c8.8 0 15.3 6.2 17.7 9a33.7 33.7 0 0 1-4.6 4.3l2.8 2.8a30.1 30.1 0 0 0 5.4-5.2 3 3 0 0 0 0-3.8Z"/><path d="M29.4 26.6A5.8 5.8 0 0 0 30 24a6 6 0 0 0-6-6 5.8 5.8 0 0 0-2.6.6L9.7 6.9a2 2 0 0 0-2.8 2.8l4.7 4.8a32.1 32.1 0 0 0-8.9 7.6 3 3 0 0 0 0 3.8C4.8 28.5 12.6 37 24 37a23 23 0 0 0 8.5-1.6l5.8 5.7a2 2 0 1 0 2.8-2.8ZM24 33c-8.8 0-15.3-6.2-17.7-9a29.7 29.7 0 0 1 8.3-6.6l4 4A5.8 5.8 0 0 0 18 24a6 6 0 0 0 6 6 5.8 5.8 0 0 0 2.6-.6l2.8 2.8a19.1 19.1 0 0 1-5.4.8Z"/></g></g></svg>
+        }
+    </button>
+  }
+    @if (hasError) {
+      <div class="text-red-500 text-sm mt-1 ml-1 flex items-center gap-1">
+
+        @if (errors?.['required']) {
+          <span>El campo es obligatorio</span>
+        }
+
+        @if (errors?.['email']) {
+          <span>El correo no es válido</span>
+        }
+
+        @if (errors?.['minlength']) {
+          <span>Mínimo {{ errors?.['minlength'].requiredLength }} caracteres</span>
+
+        }
+
+        @if (errors?.['maxlength']) {
+          <span>Máximo {{ errors?.['maxlength'].requiredLength }} caracteres</span>
+        }
+
+      </div>
+    }
+</div>
+

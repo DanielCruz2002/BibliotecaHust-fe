@@ -1,0 +1,12 @@
+<div class="min-w-100 p-4">
+  <form [formGroup]="formLogin" (ngSubmit)="enviarFormLogin()" class="space-y-6">
+
+    <div class="text-center text-3xl font-bold"> Login </div>
+    <!-- Correo -->
+    <input-component formControlName="correo" class="relative w-full" type="email" status="none" label="Correo Electronico"/>
+    <!-- Password -->
+    <input-component formControlName="password" class="relative w-full" type="password" status="none" label="Contraseña"/>
+
+    <button type="submit">enviar</button>
+  </form>
+</div>
